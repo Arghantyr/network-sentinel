@@ -1,0 +1,19 @@
+[Unit]
+Description=Network Sentinel MQTT presence agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=sentinel
+WorkingDirectory=/opt/network-sentinel
+EnvironmentFile=/etc/network-sentinel/mqtt.env
+ExecStart=/opt/network-sentinel/.venv/bin/python /opt/network-sentinel/pi/mqtt_agent.py
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/network-sentinel
+
+[Install]
+WantedBy=multi-user.target

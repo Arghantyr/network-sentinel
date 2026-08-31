@@ -1,0 +1,13 @@
+# Create one account per device. Devices can publish only their own telemetry and subscribe to commands.
+user pi-4
+topic write network-sentinel/pi-4/presence
+topic write network-sentinel/pi-4/telemetry/packets
+topic write network-sentinel/pi-4/telemetry/capture-manifests
+topic write network-sentinel/pi-4/telemetry/health
+topic read network-sentinel/pi-4/commands
+
+# GCP bridge reads privacy-safe telemetry only.
+user gcp-bridge
+topic read network-sentinel/+/telemetry/packets
+topic read network-sentinel/+/telemetry/capture-manifests
+topic read network-sentinel/+/telemetry/health

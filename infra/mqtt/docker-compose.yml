@@ -1,0 +1,27 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    ports:
+      - "8883:8883"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log
+      # Supply TLS certificates and a password file outside Git.
+      - ./certs:/mosquitto/certs:ro
+      - ./passwords:/mosquitto/passwords:ro
+
+  gcp-bridge:
+    profiles: ["gcp"]
+    build:
+      context: ../..
+      dockerfile: services/Dockerfile.gcp-bridge
+    restart: unless-stopped
+    env_file: ./gcp-bridge.env
+    depends_on:
+      - mosquitto
+    volumes:
+      - ./certs:/mosquitto/certs:ro
+      - ./gcp-service-account.json:/var/run/secrets/gcp.json:ro
+      - ./gcp-bridge-data:/var/lib/network-sentinel/gcp-bridge

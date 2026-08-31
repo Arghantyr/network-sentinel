@@ -1,0 +1,7 @@
+FROM python:3.12-slim
+WORKDIR /app
+COPY services/requirements-gcp-bridge.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY services/gcp_spool.py /app/gcp_spool.py
+COPY services/gcp_mqtt_bridge.py /app/gcp_mqtt_bridge.py
+CMD ["python", "/app/gcp_mqtt_bridge.py"]

@@ -1,0 +1,23 @@
+[Unit]
+Description=Network Sentinel bounded PCAP capture
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=sentinel
+Group=sentinel
+EnvironmentFile=/etc/network-sentinel/pcap.env
+ExecStart=/opt/network-sentinel/pi/run_capture.sh
+Restart=always
+RestartSec=5
+# dumpcap needs these two capabilities; all other privileges are removed.
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/network-sentinel
+
+[Install]
+WantedBy=multi-user.target

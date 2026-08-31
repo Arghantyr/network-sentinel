@@ -1,0 +1,22 @@
+[Unit]
+Description=Network Sentinel PCAP metadata MQTT exporter
+After=network-online.target network-sentinel-capture.service
+Wants=network-online.target
+
+[Service]
+User=sentinel
+Group=sentinel
+WorkingDirectory=/opt/network-sentinel
+EnvironmentFile=/etc/network-sentinel/mqtt.env
+EnvironmentFile=/etc/network-sentinel/pcap.env
+ExecStart=/opt/network-sentinel/.venv/bin/python /opt/network-sentinel/pi/pcap_exporter.py
+Restart=always
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/network-sentinel
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+fastapi
+joblib
+numpy
+pandas
+psutil
+pytest
+python-dotenv
+requests
+scikit-learn
+uvicorn[standard]
+paho-mqtt

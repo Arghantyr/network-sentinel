@@ -1,0 +1,18 @@
+data/
+artifacts/
+.venv/
+.env
+__pycache__/
+.pytest_cache/
+infra/mqtt/certs/
+infra/mqtt/passwords/
+infra/mqtt/data/
+infra/mqtt/log/
+infra/mqtt/gcp-bridge-data/
+infra/mqtt/gcp-bridge.env
+infra/mqtt/gcp-service-account.json
+
+# Local editor, OS, and assistant-session files
+*.py[cod]
+.DS_Store
+HANDOFF-session-*.md
